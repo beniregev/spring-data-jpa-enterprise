@@ -2,6 +2,8 @@ package com.beniregev.springdatajpaenterprise;
 
 import com.beniregev.springdatajpaenterprise.boot.Application;
 import com.beniregev.springdatajpaenterprise.boot.config.PersistenceConfiguration;
+import com.beniregev.springdatajpaenterprise.multipledb.PersistenceProductConfiguration;
+import com.beniregev.springdatajpaenterprise.multipledb.PersistenceUserConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
