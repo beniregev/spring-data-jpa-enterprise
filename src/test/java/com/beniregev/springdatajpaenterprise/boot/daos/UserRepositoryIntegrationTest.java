@@ -1,7 +1,7 @@
 package com.beniregev.springdatajpaenterprise.boot.daos;
 
-//import com.baeldung.boot.Application;
-//import com.baeldung.boot.domain.User;
+import com.beniregev.springdatajpaenterprise.boot.Application;
+import com.beniregev.springdatajpaenterprise.boot.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,4 +20,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = Application.class)
 @DirtiesContext
 public class UserRepositoryIntegrationTest extends UserRepositoryCommon {
+    @Test
+    @Transactional
+    public void givenUsersInDBWhenUpdateStatusForNameModifyingQueryAnnotationNativeThenModifyMatchingUsers() {
+        userRepository.save(new User("SAMPLE", LocalDate.now(), USER_EMAIL, ACTIVE_STATUS));
+        userRepository.save(new User("SAMPLE1", LocalDate.now(), USER_EMAIL2, ACTIVE_STATUS));
+        userRepository.save(new User("SAMPLE", LocalDate.now(), USER_EMAIL3, ACTIVE_STATUS));
+        userRepository.save(new User("SAMPLE3", LocalDate.now(), USER_EMAIL4, ACTIVE_STATUS));
+        userRepository.flush();
+
+        int updatedUsersSize = userRepository.updateUserSetStatusForNameNative(INACTIVE_STATUS, "SAMPLE");
+
+        assertThat(updatedUsersSize).isEqualTo(2);
+    }
 }
